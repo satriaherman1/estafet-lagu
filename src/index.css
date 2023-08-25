@@ -1,0 +1,45 @@
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #272626;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.title {
+  font-size: 32px;
+  color: aquamarine;
+  margin-bottom: 30px;
+  font-family: sans-serif;
+}
+
+.input-frame-src {
+  margin-top: 20px;
+  width: 600px;
+  padding: 12px;
+  border-radius: 12px;
+  outline: none;
+  display: block;
+  border: 1px solid #eaeaea;
+
+  &:focus {
+    border: 1px solid blue;
+  }
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(56, 130, 227);
+  color: white;
+}
