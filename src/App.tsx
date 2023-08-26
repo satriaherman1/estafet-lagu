@@ -6,6 +6,7 @@ function App() {
   const [start, setStart] = useState<number>(0);
   const [startFrom, setStartFrom] = useState<number>(0);
   const [isAutoPaused, setIsAutoPaused] = useState<boolean>(false);
+  const [triggerChangeStart, setTriggerChangeStart] = useState<boolean>(false);
 
   let interval: number;
 
@@ -20,19 +21,18 @@ function App() {
   const playRandom = () => {
     const randomMinute = Math.floor(Math.random() * 100000);
 
-    if (randomMinute > 93533 || randomMinute < 50000) {
+    if (randomMinute > 73533 || randomMinute < 50000) {
       playRandom();
     }
     // Ubah 10 menjadi durasi maksimum yang Anda inginkan
     else {
       interval = setInterval(() => {
         setStart((prevStart) => prevStart + 1);
-        console.log(start);
       }, 1000);
 
       const randomMinuteTimeOut = setTimeout(() => {
         setFrameSrc("");
-        setStartFrom(start);
+        setTriggerChangeStart(!triggerChangeStart);
         setIsAutoPaused(true);
 
         clearInterval(interval);
@@ -48,6 +48,10 @@ function App() {
   useEffect(() => {
     console.log(start);
   }, [start]);
+
+  useEffect(() => {
+    setStartFrom(start);
+  }, [triggerChangeStart]);
 
   return (
     <>
