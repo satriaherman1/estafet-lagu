@@ -42,6 +42,7 @@ function App() {
   };
 
   useEffect(() => {
+    setStart(0);
     setStartFrom(0);
   }, [inputValue]);
 
