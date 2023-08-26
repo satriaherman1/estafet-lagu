@@ -26,7 +26,7 @@ function App() {
     // Ubah 10 menjadi durasi maksimum yang Anda inginkan
     else {
       interval = setInterval(() => {
-        setStart((prevStart) => prevStart++);
+        setStart((prevStart) => prevStart + 1);
         console.log(start);
       }, 1000);
 
