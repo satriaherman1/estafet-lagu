@@ -1,27 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [inputValue, setInputValue] = useState<string>("");
   const [frameSrc, setFrameSrc] = useState<string>("");
+  const [start, setStart] = useState<number>(0);
+  const [startFrom, setStartFrom] = useState<number>(0);
+  const [isAutoPaused, setIsAutoPaused] = useState<boolean>(false);
 
-  const loadVideo = () => {
-    setFrameSrc(inputValue);
+  let interval: number;
+
+  const loadVideo = async () => {
+    setFrameSrc("");
+    const loadSrcTimeOut = setTimeout(() => {
+      setFrameSrc(inputValue);
+      clearTimeout(loadSrcTimeOut);
+    }, 1000);
   };
 
   const playRandom = () => {
     const randomMinute = Math.floor(Math.random() * 100000);
 
-    console.log(randomMinute);
     if (randomMinute > 93533 || randomMinute < 50000) {
       playRandom();
     }
     // Ubah 10 menjadi durasi maksimum yang Anda inginkan
     else {
-      setTimeout(() => {
+      interval = setInterval(() => {
+        setStart((prevStart) => prevStart++);
+        console.log(start);
+      }, 1000);
+
+      const randomMinuteTimeOut = setTimeout(() => {
         setFrameSrc("");
+        setStartFrom(start);
+        setIsAutoPaused(true);
+
+        clearInterval(interval);
+        clearTimeout(randomMinuteTimeOut);
       }, randomMinute);
     }
   };
+
+  useEffect(() => {
+    setStartFrom(0);
+  }, [inputValue]);
+
+  useEffect(() => {
+    console.log(start);
+  }, [start]);
 
   return (
     <>
@@ -32,19 +58,22 @@ function App() {
           id="videoFrame"
           width="560"
           height="315"
-          src={`${frameSrc}&autoplay=1`}
+          src={`${frameSrc}&autoplay=1${
+            isAutoPaused ? "&amp;start=" + startFrom : ""
+          }`}
           allow="autoplay"
           onLoad={playRandom}
           allowFullScreen
         ></iframe>
       )}
+
       <input
         type="text"
         onChange={(e) => setInputValue(e.target.value)}
         className="input-frame-src"
         placeholder="Paste link YouTube"
       />
-      <button onClick={loadVideo}>Load Video</button>
+      <button onClick={loadVideo}>Mulai</button>
       <br />
       <br />
     </>
