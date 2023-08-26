@@ -21,7 +21,7 @@ function App() {
   const playRandom = () => {
     const randomMinute = Math.floor(Math.random() * 100000);
 
-    if (randomMinute > 73533 || randomMinute < 50000) {
+    if (randomMinute > 73533 || randomMinute < 30000) {
       playRandom();
     }
     // Ubah 10 menjadi durasi maksimum yang Anda inginkan
